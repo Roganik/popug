@@ -45,5 +45,15 @@ public static class UsersApiHandlers
         return TypedResults.Ok();
     }
 
+    public static async Task<IResult> Login(CancellationToken token, SsoDbContext db,
+        LoginCommand.LoginModel model)
+    {
+        var ctx = CreateContext(token);
+        var cmd = new LoginCommand(db);
+        var result = await cmd.Execute(model, ctx);
+
+        return TypedResults.Ok(result);
+    }
+
 
 }
