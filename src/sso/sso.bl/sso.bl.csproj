@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\libs\popug.sharedlibs\popug.sharedlibs.csproj" />
+      <ProjectReference Include="..\sso.bl.events\sso.bl.events.csproj" />
+      <ProjectReference Include="..\sso.db\sso.db.csproj" />
+    </ItemGroup>
+
+</Project>
