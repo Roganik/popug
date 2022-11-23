@@ -4,6 +4,7 @@ using Popug.SharedLibs;
 using Popug.SharedLibs.Impl;
 using sso.bl.Commands;
 using sso.db;
+using sso.webapi;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -31,6 +32,8 @@ app.MapGet("/", (SsoDbContext db) =>
     db.Database.Migrate(); //todo: dirty
     return Results.Redirect("/swagger");
 });
+
+app.MapGet("/users", UsersApiHandlers.GetUsers);
 app.MapPut("/users", async (CreateUserCommand.CreateUserModel model, SsoDbContext db, IEventBus eventBus) =>
 {
     var ctx = new Context()
