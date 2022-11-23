@@ -34,28 +34,7 @@ app.MapGet("/", (SsoDbContext db) =>
 });
 
 app.MapGet("/users", UsersApiHandlers.GetUsers);
-app.MapPut("/users", async (CreateUserCommand.CreateUserModel model, SsoDbContext db, IEventBus eventBus) =>
-{
-    var ctx = new Context()
-    {
-        CancellationToken = CancellationToken.None,
-        CorrelationId = Guid.NewGuid(),
-    };
-
-    var cmd = new CreateUserCommand(db, eventBus);
-    await cmd.Execute(model, ctx);
-});
-
-app.MapPost("/users", async (UpdateUserCommand.UpdateUserModel model, SsoDbContext db, IEventBus eventBus) =>
-{
-    var ctx = new Context()
-    {
-        CancellationToken = CancellationToken.None,
-        CorrelationId = Guid.NewGuid(),
-    };
-
-    var cmd = new UpdateUserCommand(db, eventBus);
-    await cmd.Execute(model, ctx);
-});
+app.MapPut("/users", UsersApiHandlers.CreateUser);
+app.MapPost("/users", UsersApiHandlers.UpdateUser);
 
 app.Run();
