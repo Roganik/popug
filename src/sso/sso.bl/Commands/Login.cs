@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Popug.SharedLibs;
+using Popug.SharedLibs.Jwt;
 using sso.db;
 
 namespace sso.bl.Commands;
@@ -13,10 +14,12 @@ public class LoginCommand
     public record FailLoginCommandResult(string error) : LoginCommandResult(false);
     
     private readonly SsoDbContext _db;
+    private readonly IJwtTokenGenerator _jwtGenerator;
 
-    public LoginCommand(SsoDbContext db)
+    public LoginCommand(SsoDbContext db, IJwtTokenGenerator jwtGenerator)
     {
         _db = db;
+        _jwtGenerator = jwtGenerator;
     }
 
     public async Task<LoginCommandResult> Execute(LoginModel m, IContext ctx)
@@ -27,7 +30,8 @@ public class LoginCommand
             return new FailLoginCommandResult($"User {m.Login} is not found");
         }
 
-        return new SuccessLoginCommandResult("TODO: JWT TOKEN HERE");
+        var token = _jwtGenerator.Generate(u.Id, u.FullName, u.Role.ToString());
+        return new SuccessLoginCommandResult(token);
     }
 
 }

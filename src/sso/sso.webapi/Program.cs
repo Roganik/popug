@@ -37,5 +37,6 @@ app.MapGet("/users", UsersApiHandlers.GetUsers);
 app.MapPut("/users", UsersApiHandlers.CreateUser);
 app.MapPost("/users", UsersApiHandlers.UpdateUser);
 app.MapPost("/login", UsersApiHandlers.Login);
+app.MapPost("/validateJwt", UsersApiHandlers.ValidateJwt);
 
 app.Run();

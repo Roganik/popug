@@ -1,5 +1,6 @@
 using Popug.SharedLibs;
 using Popug.SharedLibs.Impl;
+using Popug.SharedLibs.Jwt;
 using sso.bl.Commands;
 using sso.bl.Queries;
 using sso.db;
@@ -45,15 +46,19 @@ public static class UsersApiHandlers
         return TypedResults.Ok();
     }
 
-    public static async Task<IResult> Login(CancellationToken token, SsoDbContext db,
+    public static async Task<IResult> Login(CancellationToken token, SsoDbContext db, IJwtTokenGenerator generator,
         LoginCommand.LoginModel model)
     {
         var ctx = CreateContext(token);
-        var cmd = new LoginCommand(db);
+        var cmd = new LoginCommand(db, generator);
         var result = await cmd.Execute(model, ctx);
 
         return TypedResults.Ok(result);
     }
-
-
+    
+    public static async Task<IResult> ValidateJwt(IJwtTokenValidator validator, string token)
+    {
+        var isValid = validator.IsValid(token);
+        return TypedResults.Ok(new {IsValid = isValid});
+    }
 }
