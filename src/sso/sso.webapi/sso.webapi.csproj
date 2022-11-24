@@ -25,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\libs\popug.sharedlibs\popug.sharedlibs.csproj" />
+      <ProjectReference Include="..\..\libs\popug.webinfra\popug.webinfra.csproj" />
       <ProjectReference Include="..\sso.bl\sso.bl.csproj" />
     </ItemGroup>
 
