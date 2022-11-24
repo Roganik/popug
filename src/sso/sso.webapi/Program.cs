@@ -1,8 +1,7 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Popug.SharedLibs;
-using Popug.SharedLibs.Impl;
-using sso.bl.Commands;
 using sso.db;
 using sso.webapi;
 
@@ -20,12 +19,43 @@ services.AddSwaggerGen(options =>
         Title = "Popug SSO API",
         Description = "An ASP.NET Core Web API for managing ToDo items",
     });
+    
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter a valid token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+    
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    }); 
 });
+
+services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme);
+services.ConfigureOptions<ConfigureJwtBearerOptions>();
+services.AddAuthorization();
 
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseAuthorization();
 
 app.MapGet("/", (SsoDbContext db) =>
 {
@@ -34,8 +64,8 @@ app.MapGet("/", (SsoDbContext db) =>
 });
 
 app.MapGet("/users", UsersApiHandlers.GetUsers);
-app.MapPut("/users", UsersApiHandlers.CreateUser);
-app.MapPost("/users", UsersApiHandlers.UpdateUser);
+app.MapPut("/users", UsersApiHandlers.CreateUser).RequireAuthorization();
+app.MapPost("/users", UsersApiHandlers.UpdateUser).RequireAuthorization();
 app.MapPost("/login", UsersApiHandlers.Login);
 app.MapPost("/validateJwt", UsersApiHandlers.ValidateJwt);
 

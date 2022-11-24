@@ -36,14 +36,7 @@ public class JwtTokenService : IJwtTokenGenerator, IJwtTokenValidator
         var tokenHandler = new JwtSecurityTokenHandler();
         try
         {
-            tokenHandler.ValidateToken(token, new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                ValidateIssuer = true,
-                ValidateAudience = false,
-                ValidIssuer = Issuer,
-                IssuerSigningKey = SecurityKey
-            }, out SecurityToken validatedToken);
+            tokenHandler.ValidateToken(token, CreateValidationParameters(), out SecurityToken validatedToken);
         }
         catch
         {
@@ -51,5 +44,22 @@ public class JwtTokenService : IJwtTokenGenerator, IJwtTokenValidator
         }
 
         return true;
+    }
+
+    public TokenValidationParameters CreateValidationParameters()
+    {
+        return new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            ValidateIssuer = true,
+            ValidateAudience = false,
+            ValidIssuer = Issuer,
+            IssuerSigningKey = SecurityKey
+        };
+    }
+
+    public JwtSecurityTokenHandler GetValidator()
+    {
+        throw new NotImplementedException();
     }
 }
