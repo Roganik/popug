@@ -63,10 +63,10 @@ app.MapGet("/", (SsoDbContext db) =>
     return Results.Redirect("/swagger");
 });
 
-app.MapGet("/users", UsersApiHandlers.GetUsers);
+app.MapGet("/users", UsersApiHandlers.GetUsers).AllowAnonymous();
 app.MapPut("/users", UsersApiHandlers.CreateUser).RequireAuthorization();
-app.MapPost("/users", UsersApiHandlers.UpdateUser).RequireAuthorization();
-app.MapPost("/login", UsersApiHandlers.Login);
-app.MapPost("/validateJwt", UsersApiHandlers.ValidateJwt);
+app.MapPost("/users", UsersApiHandlers.UpdateUser).RequireAuthorization(opts => opts.RequireRole("Admin"));
+app.MapPost("/login", UsersApiHandlers.Login).AllowAnonymous();
+app.MapPost("/validateJwt", UsersApiHandlers.ValidateJwt).AllowAnonymous();
 
 app.Run();
