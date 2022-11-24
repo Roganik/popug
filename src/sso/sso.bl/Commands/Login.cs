@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Popug.SharedLibs;
-using Popug.SharedLibs.Jwt;
+using popug.jwt;
+using popug.sharedlibs;
 using sso.db;
 
 namespace sso.bl.Commands;

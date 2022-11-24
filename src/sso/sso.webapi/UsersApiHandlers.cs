@@ -1,6 +1,6 @@
-using Popug.SharedLibs;
-using Popug.SharedLibs.Impl;
-using Popug.SharedLibs.Jwt;
+using popug.jwt;
+using popug.sharedlibs;
+using popug.sharedlibs.Impl;
 using sso.bl.Commands;
 using sso.bl.Queries;
 using sso.db;

@@ -1,6 +1,6 @@
 using Microsoft.IdentityModel.Tokens;
 
-namespace Popug.SharedLibs.Jwt;
+namespace popug.jwt;
 
 public interface IJwtTokenValidator
 {

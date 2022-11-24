@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Popug.SharedLibs.Jwt;
+namespace popug.jwt;
 
 public class JwtTokenService : IJwtTokenGenerator, IJwtTokenValidator
 {

@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Popug.SharedLibs;
+using popug.jwt;
+using popug.sharedlibs;
 using sso.db;
 using sso.webapi;
 
@@ -10,6 +11,8 @@ var services = builder.Services;
 
 services.AddEndpointsApiExplorer();
 services.RegisterLibs();
+services.RegisterJwt();
+
 services.AddDbContext<SsoDbContext>(options => options.UseSqlite(DesignTimeDbContextFactory.ConnectionString));
 services.AddSwaggerGen(options =>
 {

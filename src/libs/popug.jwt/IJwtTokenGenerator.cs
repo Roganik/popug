@@ -1,4 +1,4 @@
-namespace Popug.SharedLibs.Jwt;
+namespace popug.jwt;
 
 public interface IJwtTokenGenerator
 {

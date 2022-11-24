@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
-using Popug.SharedLibs.Jwt;
+using popug.jwt;
 
 namespace sso.webapi;
 

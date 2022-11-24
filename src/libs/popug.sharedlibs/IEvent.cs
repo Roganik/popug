@@ -1,4 +1,4 @@
-namespace Popug.SharedLibs;
+namespace popug.sharedlibs;
 
 public record EventScope(string Domain, string Event);
 

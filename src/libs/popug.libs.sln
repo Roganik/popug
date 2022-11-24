@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "popug.sharedlibs", "popug.sharedlibs\popug.sharedlibs.csproj", "{C3B1E640-0665-4DC2-904D-6417A079BAE4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "popug.jwt", "popug.jwt\popug.jwt.csproj", "{FA81D6C9-98AB-4A41-998D-FC2B5AB63394}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{C3B1E640-0665-4DC2-904D-6417A079BAE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3B1E640-0665-4DC2-904D-6417A079BAE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3B1E640-0665-4DC2-904D-6417A079BAE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA81D6C9-98AB-4A41-998D-FC2B5AB63394}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA81D6C9-98AB-4A41-998D-FC2B5AB63394}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA81D6C9-98AB-4A41-998D-FC2B5AB63394}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA81D6C9-98AB-4A41-998D-FC2B5AB63394}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

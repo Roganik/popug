@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\libs\popug.jwt\popug.jwt.csproj" />
       <ProjectReference Include="..\..\libs\popug.sharedlibs\popug.sharedlibs.csproj" />
       <ProjectReference Include="..\sso.bl.events\sso.bl.events.csproj" />
       <ProjectReference Include="..\sso.db\sso.db.csproj" />

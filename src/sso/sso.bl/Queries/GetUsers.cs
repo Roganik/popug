@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Popug.SharedLibs;
+using popug.sharedlibs;
 using sso.db;
 
 namespace sso.bl.Queries;

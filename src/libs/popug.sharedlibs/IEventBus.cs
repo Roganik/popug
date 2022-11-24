@@ -1,4 +1,4 @@
-namespace Popug.SharedLibs;
+namespace popug.sharedlibs;
 
 public interface IEventBus
 {

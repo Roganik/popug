@@ -1,4 +1,4 @@
-using Popug.SharedLibs;
+using popug.sharedlibs;
 
 namespace sso.bl.events;
 

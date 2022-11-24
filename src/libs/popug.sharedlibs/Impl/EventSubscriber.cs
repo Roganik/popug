@@ -1,4 +1,4 @@
-namespace Popug.SharedLibs.Impl;
+namespace popug.sharedlibs.Impl;
 
 public class EventSubscriber : IEventSubscriber
 {
