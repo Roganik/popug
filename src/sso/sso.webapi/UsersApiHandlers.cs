@@ -56,7 +56,7 @@ public static class UsersApiHandlers
         return TypedResults.Ok(result);
     }
     
-    public static async Task<IResult> ValidateJwt(IJwtTokenValidator validator, string token)
+    public static IResult ValidateJwt(IJwtTokenValidator validator, string token)
     {
         var isValid = validator.IsValid(token);
         return TypedResults.Ok(new {IsValid = isValid});
