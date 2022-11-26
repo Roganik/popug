@@ -57,9 +57,4 @@ public class JwtTokenService : IJwtTokenGenerator, IJwtTokenValidator
             IssuerSigningKey = SecurityKey
         };
     }
-
-    public JwtSecurityTokenHandler GetValidator()
-    {
-        throw new NotImplementedException();
-    }
 }

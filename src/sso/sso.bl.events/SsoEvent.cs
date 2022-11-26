@@ -4,9 +4,9 @@ namespace sso.bl.events;
 
 public class SsoEvent<T> : IEvent<T>
 {
-    public SsoEvent(T data, Guid correlationId)
+    public SsoEvent(T data, string aggregateID, Guid correlationId)
     {
-        Scope = new EventScope("SSO", typeof(T).Name);
+        Scope = new EventScope("SSO", typeof(T).Name, aggregateID);
         Data = data;
         CorrelationId = correlationId;
     }

@@ -1,6 +1,6 @@
 namespace popug.sharedlibs;
 
-public record EventScope(string Domain, string Event);
+public record EventScope(string Domain, string Event, string AggregadeID);
 
 public interface IEvent<T> : IHasCorrelationId
 {

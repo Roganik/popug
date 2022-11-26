@@ -39,7 +39,7 @@ public class CreateUserCommand
     private IEvent<UserCreated> UserCreatedEvent(db.Models.User u, IContext ctx)
     {
         var data = new UserCreated(Id: u.Id, Login: u.Login, Name: u.FullName);
-        var e = new SsoEvent<UserCreated>(data, ctx.CorrelationId);
+        var e = new SsoEvent<UserCreated>(data, u.Id.ToString(), ctx.CorrelationId);
 
         return e;
     }
@@ -47,7 +47,7 @@ public class CreateUserCommand
     private IEvent<UserRoleChanged> UserRoleChangedEvent(db.Models.User u, IContext ctx)
     {
         var data = new UserRoleChanged(Id: u.Id, Role: u.Role.ToString());
-        var e = new SsoEvent<UserRoleChanged>(data, ctx.CorrelationId);
+        var e = new SsoEvent<UserRoleChanged>(data, u.Id.ToString(), ctx.CorrelationId);
 
         return e;
     }

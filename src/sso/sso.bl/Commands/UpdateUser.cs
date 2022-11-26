@@ -36,7 +36,7 @@ public class UpdateUserCommand
     private Task SendUserUpdatedEvent(db.Models.User u, IContext ctx)
     {
         var data = new UserUpdated(Id: u.Id, Login: u.Login, Name: u.FullName);
-        var e = new SsoEvent<UserUpdated>(data, ctx.CorrelationId);
+        var e = new SsoEvent<UserUpdated>(data, u.Id.ToString(), ctx.CorrelationId);
         
         return _eventBus.Send(e, ctx);
     }
@@ -44,7 +44,7 @@ public class UpdateUserCommand
     private Task SendUserRoleChangedEvent(db.Models.User u, IContext ctx)
     {
         var data = new UserRoleChanged(Id: u.Id, Role: u.Role.ToString());
-        var e = new SsoEvent<UserRoleChanged>(data, ctx.CorrelationId);
+        var e = new SsoEvent<UserRoleChanged>(data, u.Id.ToString(), ctx.CorrelationId);
         
         return _eventBus.Send(e, ctx);
     } 
