@@ -27,7 +27,7 @@ public class EventBus : IEventBus, IDisposable
     public Task Send<T>(IEvent<T> @event, IContext ctx)
     {
         var topic = @event.Scope.Domain+"_"+@event.Scope.Event;
-        var key = @event.Scope.AggregadeID;
+        var key = @event.Scope.AggregateId;
         var value = JsonSerializer.Serialize<T>(@event.Data);
         
         var message = new Message<string, string>() {Key = key, Value = value};

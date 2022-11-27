@@ -6,7 +6,9 @@ public class SsoEvent<T> : IEvent<T>
 {
     public SsoEvent(T data, string aggregateID, Guid correlationId)
     {
-        Scope = new EventScope("SSO", typeof(T).Name, aggregateID);
+        var domain = PopugEventsDomainAttribute.ReadDomainFromAssemblyContainingType(typeof(SsoEvent<>));
+        
+        Scope = new EventScope(domain, typeof(T).Name, aggregateID);
         Data = data;
         CorrelationId = correlationId;
     }
