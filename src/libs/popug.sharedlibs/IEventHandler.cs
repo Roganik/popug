@@ -1,6 +1,6 @@
 namespace popug.sharedlibs;
 
-public interface IEventHandler
+public interface IEventHandler<T>
 {
-    public Task Handle<T>(T eventData, EventScope eventScope, IContext ctx) where T : IHasCorrelationId, new();
+    public Task Handle(T eventData, IContext ctx);
 }

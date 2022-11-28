@@ -2,5 +2,5 @@ namespace popug.sharedlibs;
 
 public interface IEventSubscriber
 {
-    Task Subscribe(EventScope eventScope, IEventHandler handler);
+    Task Subscribe<T>(T @event, IEventHandler<T> handler);
 }

@@ -29,25 +29,13 @@ public class UpdateUserCommand
         dbUser.Role = GetUserRole(m);
         
         await _db.SaveChangesAsync(ctx.CancellationToken);
-        await SendUserUpdatedEvent(dbUser, ctx);
-        await SendUserRoleChangedEvent(dbUser, ctx);
+        var e1 = new UserUpdated(Id: dbUser.Id, Login: dbUser.Login, Name: dbUser.FullName);
+        var e2 = new UserRoleChanged(Id: dbUser.Id, Role: dbUser.Role.ToString());
+        
+        await _eventBus.Send(e1, dbUser.Id.ToString(), ctx);
+        await _eventBus.Send(e2, dbUser.Id.ToString(), ctx);
     }
 
-    private Task SendUserUpdatedEvent(db.Models.User u, IContext ctx)
-    {
-        var data = new UserUpdated(Id: u.Id, Login: u.Login, Name: u.FullName);
-        var e = new SsoEvent<UserUpdated>(data, u.Id.ToString(), ctx.CorrelationId);
-        
-        return _eventBus.Send(e, ctx);
-    }
-    
-    private Task SendUserRoleChangedEvent(db.Models.User u, IContext ctx)
-    {
-        var data = new UserRoleChanged(Id: u.Id, Role: u.Role.ToString());
-        var e = new SsoEvent<UserRoleChanged>(data, u.Id.ToString(), ctx.CorrelationId);
-        
-        return _eventBus.Send(e, ctx);
-    } 
     private static UserRole GetUserRole(UpdateUserModel m)
     {
         if (m.Role.ToLower() == "admin") return UserRole.Admin;

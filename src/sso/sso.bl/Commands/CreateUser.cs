@@ -28,28 +28,12 @@ public class CreateUserCommand
         _db.Users.Add(dbUser);
         await _db.SaveChangesAsync(ctx.CancellationToken);
 
-        var e1 = UserCreatedEvent(dbUser, ctx);
-        var e2 = UserRoleChangedEvent(dbUser, ctx);
-        var task1 = _eventBus.Send(e1, ctx);
-        var task2 = _eventBus.Send(e2, ctx);
+        var e1 = new UserCreated(Id: dbUser.Id, Login: dbUser.Login, Name: dbUser.FullName);
+        var e2 = new UserRoleChanged(Id: dbUser.Id, Role: dbUser.Role.ToString());
+        var task1 = _eventBus.Send(e1, dbUser.Id.ToString(), ctx);
+        var task2 = _eventBus.Send(e2, dbUser.Id.ToString(), ctx);
 
         await Task.WhenAll(task1, task2);
-    }
-
-    private IEvent<UserCreated> UserCreatedEvent(db.Models.User u, IContext ctx)
-    {
-        var data = new UserCreated(Id: u.Id, Login: u.Login, Name: u.FullName);
-        var e = new SsoEvent<UserCreated>(data, u.Id.ToString(), ctx.CorrelationId);
-
-        return e;
-    }
-    
-    private IEvent<UserRoleChanged> UserRoleChangedEvent(db.Models.User u, IContext ctx)
-    {
-        var data = new UserRoleChanged(Id: u.Id, Role: u.Role.ToString());
-        var e = new SsoEvent<UserRoleChanged>(data, u.Id.ToString(), ctx.CorrelationId);
-
-        return e;
     }
 
     private static UserRole GetUserRole(CreateUserModel m)

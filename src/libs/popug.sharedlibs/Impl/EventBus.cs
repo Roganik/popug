@@ -24,12 +24,20 @@ public class EventBus : IEventBus, IDisposable
         _eventProducer.Dispose();
     }
     
-    public Task Send<T>(IEvent<T> @event, IContext ctx)
+    public Task Send<T>(T @event, string aggregateId, IContext ctx)
     {
-        var topic = @event.Scope.Domain+"_"+@event.Scope.Event;
-        var key = @event.Scope.AggregateId;
-        var value = JsonSerializer.Serialize<T>(@event.Data);
+        var domain = PopugEventsDomainAttribute.ReadDomainFromAssemblyContainingType(typeof(T));
+        var eventName = typeof(T).Name;
+        var topic = domain + "_" + eventName;
+        var key = aggregateId;
+
+        var internalEvent = new Event<T>
+        {
+            CorrelationId = ctx.CorrelationId,
+            Data = @event,
+        };
         
+        var value = JsonSerializer.Serialize<Event<T>>(internalEvent);
         var message = new Message<string, string>() {Key = key, Value = value};
         
         var job = _eventProducer

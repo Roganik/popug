@@ -1,11 +1,7 @@
 namespace popug.sharedlibs;
 
-public interface IHasCorrelationId
-{
-    public Guid CorrelationId { get; }
-}
-
-public interface IContext : IHasCorrelationId
+public interface IContext
 {
     public CancellationToken CancellationToken { get; }
+    public Guid CorrelationId { get; }
 }

@@ -11,11 +11,14 @@ public class EventSubscriber : IEventSubscriber
         new ("auto.offset.reset", "earliest"),
     };
     
-    public Task Subscribe(EventScope eventScope, IEventHandler handler)
+    public Task Subscribe<T>(T @event, IEventHandler<T> handler)
     {
+        var domain = PopugEventsDomainAttribute.ReadDomainFromAssemblyContainingType(typeof(T));
+        var eventName = typeof(T).Name;
+        var topic = domain + "_" + eventName;
+
         using (var consumer = new ConsumerBuilder<string, string>(_config.AsEnumerable()).Build())
         {
-            var topic = eventScope.Domain+"_"+eventScope.Event;
             consumer.Subscribe(topic);
             try {
                 while (true) {

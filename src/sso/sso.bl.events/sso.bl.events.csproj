@@ -12,8 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AssemblyAttribute
-                Include="popug.sharedlibs.PopugEventsDomainAttribute">
+        <AssemblyAttribute Include="popug.sharedlibs.PopugEventsDomainAttribute">
             <_Parameter1>SSO</_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>
