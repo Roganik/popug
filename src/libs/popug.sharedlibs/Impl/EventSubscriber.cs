@@ -10,8 +10,8 @@ public class EventSubscriber : IEventSubscriber
         new ("group.id", "kafka-dotnet-getting-started"),
         new ("auto.offset.reset", "earliest"),
     };
-    
-    public Task Subscribe<T>(T @event, IEventHandler<T> handler)
+
+    public Task Subscribe<T, TEventHandler>() where TEventHandler : IEventHandler<T>
     {
         var domain = PopugEventsDomainAttribute.ReadDomainFromAssemblyContainingType(typeof(T));
         var eventName = typeof(T).Name;
