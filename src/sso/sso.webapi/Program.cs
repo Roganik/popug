@@ -10,13 +10,18 @@ services.ConfigurePopugServices();
 services.AddDbContext<SsoDbContext>(options => options.UseSqlite(DesignTimeDbContextFactory.ConnectionString));
 
 var app = builder.Build();
-app.ConfigurePopugWebApplication();
 
-app.MapGet("/", (SsoDbContext db) =>
+using (var scope = app.Services.CreateScope())
 {
-    db.Database.Migrate(); //todo: dirty
-    return Results.Redirect("/swagger");
-});
+    // migrate db on startup
+    var db = scope.ServiceProvider.GetService<SsoDbContext>();
+    db.Database.Migrate();
+}
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+app.ConfigurePopugWebApplication();
 
 app.MapGet("/users", UsersApiHandlers.GetUsers).AllowAnonymous();
 app.MapPut("/users", UsersApiHandlers.CreateUser).RequireAuthorization();

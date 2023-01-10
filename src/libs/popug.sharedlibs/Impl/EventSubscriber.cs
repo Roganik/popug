@@ -7,7 +7,7 @@ public class EventSubscriber : IEventSubscriber
     private readonly List<KeyValuePair<string, string>> _config = new()
     {
         new ("bootstrap.servers", "localhost:9092"),
-        new ("group.id", "kafka-dotnet-getting-started"),
+        new ("group.id", "kafka-dotnet-getting-started2022"),
         new ("auto.offset.reset", "earliest"),
     };
 
