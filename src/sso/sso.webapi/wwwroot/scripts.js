@@ -7,18 +7,11 @@ $("#login-btn").click(() => {
         $("#login-response").text(JSON.stringify(data,false, 2));
     }
 
-    $.ajax({
-        contentType: 'application/json',
-        data: body,
-        dataType: 'json',
-        success: function(data, textStatus, jqXHR) {
+    ApiClient.post('/login', body, 
+        (data, textStatus, jqXHR) => { 
             handleResponse(data);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            handleResponse(textStatus);
-        },
-        processData: false,
-        type: 'POST',
-        url: '/login'
-    });
+            JwtStore.set(data.jwt);
+            }, 
+        (jqXHR, textStatus, errorThrown) => { handleResponse(textStatus); }
+    );
 })
